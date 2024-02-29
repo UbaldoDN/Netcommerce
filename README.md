@@ -1,66 +1,220 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+## Objetivo
+Desarrollar una aplicación tipo API, en donde se apliquen todos los conocimientos posibles acerca del framework Laravel 10.x y versiones
+anteriores. Esta API no requiere de autenticación para los distintos endpoints, se requiere consumir listados de tareas relacionados a
+usuarios y empresas.
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+### Métricas de éxito
+- **Se uso Laravel 10.x**
+- **Se puede consultar el listado de empresas y sus tareas relacionadas**
+- **Se implemento el uso de relaciones Eloquent HasMany**
+- **Se implemento el uso de relaciones Eloquent BelongsTo**
+- **Se utilizó validación para la creación de tareas**
+- **Se limito la creación de tareas pendientes a 5 por usuario**
+- **Los modelos están correctamente nombrados en base a las conveciones de Laravel**
+- **Las tablas de base de datos se pueden crear mediante migraciones**
+- **Los modelos cuentan con Factories**
+- **Se crearon Seeders**
+- **No se utilizo consultas en “crudo (raw)”**
+- **Se subio el código a un repositorio de GIT**
+- **Se adjuntaron capturas de pantalla de los resultados de las consultas a los puntos de consulta**
 
-## About Laravel
+## Instalación
+> composer install
+- **Ajustar el archivo .env con la configuración de la base de datos a utilizar**
+> php artisan migrate --seed || php artisan migrate:refresh --seed
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## Ejecutar pruebas unitarias
+> php artisan test 
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Endpoints
+### GET /api/companies
+```javascript
+[{
+        "id": 1,
+        "name": "Kulas-Keeling",
+        "tasks": [{
+            "id": 1,
+            "name": "Dr. Lauren Schaden",
+            "description": "Id sunt facere sit rerum. Illo aut quia architecto quia rerum sed.",
+            "is_completed": 1,
+            "started_at": "2024-02-29T19:54:08.000000Z",
+            "expired_at": null,
+            "user": {
+                "id": 1,
+                "name": "Mr. Russell Ortiz"
+            }
+        }]
+    },
+    {
+        "id": 2,
+        "name": "Breitenberg-Feil",
+        "tasks": [{
+            "id": 2,
+            "name": "Garret Howe",
+            "description": "Nesciunt qui optio et veniam. Aspernatur nobis minus est quia perferendis debitis et. Veritatis esse ut reprehenderit sed. Est ut quis dolorem incidunt ab modi.",
+            "is_completed": 0,
+            "started_at": "2024-02-29T19:54:08.000000Z",
+            "expired_at": "2024-03-03T19:54:08.000000Z",
+            "user": {
+                "id": 2,
+                "name": "Demarcus Raynor IV"
+            }
+        }]
+    },
+    {
+        "id": 3,
+        "name": "Marks Inc",
+        "tasks": []
+    }
+]
+```
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+### GET /api/users
+```javascript
+[
+  {
+    "id": 15,
+    "name": "Fatima Zboncak",
+    "tasks": [
+      {
+        "id": 28,
+        "name": "Mr. Jefferey Will I",
+        "description": "Est amet sit qui debitis. Impedit quaerat porro itaque quam rerum rerum cum. Dolor consequatur pariatur optio voluptate voluptas cum minima. Praesentium consequuntur qui cum quia nostrum quas.",
+        "is_completed": 1,
+        "started_at": "2024-02-29T19:58:49.000000Z",
+        "expired_at": null,
+        "company": {
+          "id": 23,
+          "name": "Vandervort, Nikolaus and Schmitt"
+        }
+      }
+    ]
+  },
+  {
+    "id": 16,
+    "name": "Prof. Patrick Ruecker",
+    "tasks": [
+      {
+        "id": 29,
+        "name": "Lorena Schoen Jr.",
+        "description": "Ratione facere in eos ipsa. Maxime amet perspiciatis et. Nostrum facilis odit molestiae provident consequatur ipsum architecto. Iure sequi maiores ad laboriosam placeat et eum.",
+        "is_completed": 0,
+        "started_at": "2024-02-29T19:58:49.000000Z",
+        "expired_at": "2024-03-03T19:58:49.000000Z",
+        "company": {
+          "id": 24,
+          "name": "Padberg, Gulgowski and Kuphal"
+        }
+      }
+    ]
+  },
+  {
+    "id": 17,
+    "name": "Donnie Roob",
+    "tasks": []
+  }
+]
+```
+### GET /api/tasks
+```javascript
+[
+  {
+    "id": 8,
+    "name": "Dennis Kemmer",
+    "description": "Provident eaque autem esse hic. Dolorum expedita sapiente explicabo vitae nobis velit. Iure officia itaque ipsum id labore sed amet. Fugiat ut rerum occaecati magni.",
+    "is_completed": 0,
+    "started_at": "2024-02-29T20:00:07.000000Z",
+    "expired_at": "2024-03-03T20:00:07.000000Z",
+    "user": {
+      "id": 4,
+      "name": "Ambrose Hodkiewicz"
+    },
+    "company": {
+      "id": 12,
+      "name": "Crona-Maggio"
+    }
+  },
+  {
+    "id": 9,
+    "name": "Haskell Klocko",
+    "description": "Adipisci aut eligendi ipsa aspernatur ad totam aut. Culpa id accusamus temporibus minus aut. Veritatis voluptatum nesciunt aut expedita odio rerum.",
+    "is_completed": 0,
+    "started_at": "2024-02-29T20:00:07.000000Z",
+    "expired_at": "2024-03-03T20:00:07.000000Z",
+    "user": {
+      "id": 5,
+      "name": "Ignacio Jakubowski II"
+    },
+    "company": {
+      "id": 13,
+      "name": "Bosco Inc"
+    }
+  },
+  {
+    "id": 10,
+    "name": "Lou Volkman Sr.",
+    "description": "Minima itaque labore ratione sapiente. Sit quasi repellat dolores. Quia voluptates molestias quo.",
+    "is_completed": 0,
+    "started_at": "2024-02-29T20:00:07.000000Z",
+    "expired_at": "2024-03-03T20:00:07.000000Z",
+    "user": {
+      "id": 6,
+      "name": "Mr. Gregorio Erdman DDS"
+    },
+    "company": {
+      "id": 14,
+      "name": "Lindgren and Sons"
+    }
+  },
+  {
+    "id": 11,
+    "name": "Marquise Bergnaum",
+    "description": "Assumenda quae sint laborum optio nesciunt molestiae deleniti. Voluptatem sunt rem sed repellat.",
+    "is_completed": 0,
+    "started_at": "2024-02-29T20:00:07.000000Z",
+    "expired_at": "2024-03-03T20:00:07.000000Z",
+    "user": {
+      "id": 7,
+      "name": "Arlo Hills"
+    },
+    "company": {
+      "id": 15,
+      "name": "Hessel, Schimmel and Hamill"
+    }
+  },
+  {
+    "id": 12,
+    "name": "Mayra McCullough",
+    "description": "Incidunt dignissimos quidem delectus ipsum. Est illum doloremque nobis enim non pariatur amet.",
+    "is_completed": 0,
+    "started_at": "2024-02-29T20:00:07.000000Z",
+    "expired_at": "2024-03-03T20:00:07.000000Z",
+    "user": {
+      "id": 8,
+      "name": "Maxwell Turner"
+    },
+    "company": {
+      "id": 16,
+      "name": "Lemke-Kreiger"
+    }
+  }
+]
+```
 
-## Learning Laravel
+### POST /api/tasks
+```javascript
+{
+  "name": "Task 1",
+  "description": "Task content 1",
+  "started_at": "2024-02-29T20:01:36.000000Z",
+  "expired_at": "2024-03-03T20:01:36.000000Z",
+  "id": 23
+}
+```
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
-
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
-
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
-
-## Laravel Sponsors
-
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
-
-### Premium Partners
-
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
-
-## Contributing
-
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+### POST /api/tasks - Validación de 5 táreas máximo incompletas
+```javascript
+{
+  "message": "No es posible crear más tareas, el máximo es de 5."
+}
+```
